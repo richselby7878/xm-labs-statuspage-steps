@@ -27,32 +27,37 @@ The steps are packaged with a simple test interface, Statuspage Trigger Form, wh
 The Statuspage API is used to work with Incidents in Statuspage. Here's an example of an Incident created via xMatters using the Statuspage Trigger Form interface in conjunction with the Create Incident with Components flow step.
 
 The flow step, highlighted green in the Activity Log after being executed...
-	<kbd>  <img src="/media/create_step" width="500"> </kbd>
+
+<kbd>  <img src="/media/create_step.png" width="300"> </kbd>
 	
 	
 The resulting Incident in Statuspage
-	<kbd>  <img src="/media/sp_end_of_the_world" width="750"> </kbd>
+
+<kbd>  <img src="/media/sp_end_of_the_world.png" width="750"> </kbd>
 	
 Scrolling down the page to Components, we see The Doctor is an affected component, with a component status of Partial Outage.
 
-	<kbd>  <img src="/media/sp_component" width="750"> </kbd>
+<kbd>  <img src="/media/sp_component.png" width="750"> </kbd>
 
 When an Incident is created in Statuspage, it generates a Unique Id, also known as the Statuspage Incident Id. This Id is not visible on the page, but it is required for subsequent steps.
 
 You can grab it from the flow Activity Log
-	<kbd>  <img src="/media/activity_log_unique_id" width="500"> </kbd>
 
-If you're using the Statuspage Trigger From to test, you can also get it from the alert email sent post-creation. It's also present in the Alerts Report.
+ <kbd>  <img src="/media/activity_log_unique_id.png" width="400"> </kbd>
 
-	<kbd>  <img src="/media/email_unique_id" width="500"> </kbd>
+If you're using the Statuspage Trigger Form to test the steps, you can also get it from the alert email sent post-creation. It's also present in the Alerts Report.
 
-With subsequent steps you can send updates, then resolve the Incident, so it moves to the Past Incidents section of your Statuspage.
-	<kbd>  <img src="/media/past_incident" width="500"> </kbd>
+<kbd>  <img src="/media/email_unique_id.png" width="500"> </kbd>
+
+
+With subsequent steps you can send updates, then resolve the Incident, so eventually your Incident moves down to the Past Incidents section of your Statuspage.
+
+<kbd>  <img src="/media/past_incident.png" width="500"> </kbd>
 	
 	
 
 # Custom Flow Steps
-All flow steps have common outputs to allow for easy error-trapping within the flow. For example, the **Statusapge Create Incident With Components** step has a **created_boolean** output, which is set to "true" when the Incident is created, and "false" otherwise. This allows you to place a Switch step following the Create step and take action should the Create fail. The inverse of this is the **error** output, which can also be used. It's just a matter of style and preference. You can use one, both, or neither.  This contrasts with the built-in Statuspage Create/Update steps which throw an error on failure and stop the flow in its tracks.
+All flow steps have common outputs to allow for easy error-trapping within the flow. For example, the **Statusapge Create Incident With Components** step has a **created_boolean** output, which is set to "true" when the Incident is created, and "false" otherwise. This allows you to place a Switch step following the Create step and take action should the Create fail. The inverse of this is the **error** output, which can also be used. It's just a matter of style and preference. You can use one, both, or neither.  This contrasts with the built-in Statuspage Create/Update steps which throw an error on failure, then stops the flow in its tracks.
 
  
 The custom flow steps are...
@@ -60,13 +65,13 @@ The custom flow steps are...
   
 	<kbd>  <img src="/media/step_create.png" width="200"> </kbd>
 
-Create a new incident in Statuspage. Unlike the built-in Statuspage Create Incident step, this step allows you to optionally set affected components. You can choose either individual components or component-groups. For the latter, every component in the group is affected. N.B. Setting a component status applies to *all* components. Any unrecognised component names are silently ignored. Other inputs include Name, Status, Body (can be thought of as either first update or Incident Details) and Impact Override.  Step outputs include the Incident ID as assigned by Statuspage on creation. You should retain this ID to use in update/resolve/delete/get steps. 
+Create a new incident in Statuspage. Unlike the built-in Statuspage Create Incident step, this step allows you to optionally set affected components. You can choose either individual components or component-groups. For the latter, every component in the group is affected. N.B. The component *status* applies to all components. Any unrecognised component names are silently ignored. Other inputs include Name, Status, Body (can be thought of as either first update or Incident Details) and Impact Override.  Step outputs include the Incident ID as assigned by Statuspage on creation. You should retain this ID to use in update/resolve/delete/get steps. 
 
 *	Statuspage Update Incident with Components
   
 	<kbd>  <img src="/media/step_update.png" width="200"> </kbd>
  
-Update an incident in Statuspage, optionally with updates to affected components. To use this step, you must supply the Statuspage Unique Id, also referred to as the Statuspage Incident ID. Otherwise, step inputs and outputs are the same as the Create step. We recommened you use the Body field for a text update. N.B. If updating components are component-groups, only the named components are affected. Any prior components retain their original status.
+Update an incident in Statuspage, optionally with updates to affected components. To use this step, you must supply the Statuspage Unique Id, also referred to as the Statuspage Incident ID. Otherwise, step inputs and outputs are the same as the Create step. We recommened you use the Body field for a text update. N.B. If updating components or component-groups, only the named components in the step input are affected. Any prior components from earlier updates retain their original status.
 
 
 *	Statuspage Resolve Incident with Components
@@ -79,7 +84,7 @@ Resolve an Incident in Statuspage, automatically setting any impacted components
 
 	<kbd>  <img src="/media/step_delete.png" width="200"> </kbd>
  
-Deletes a Statuspage Incident using the Statuspage Unique Id. Delete as in remove it entirely, not change a status. 
+Deletes a Statuspage Incident using the Statuspage Unique Id. Delete as in remove it entirely gone-forever. 
 
 
 *	Statuspage Get Incident From Keywords
@@ -90,7 +95,7 @@ Search for a Statuspage Incident using keywords. The keywords are Or'd together,
 
 *	Statuspage Get Incident From Id
 
-	<kbd>  <img src="/media/step_get_id.png" width="2)0"> </kbd>
+	<kbd>  <img src="/media/step_get_id.png" width="200"> </kbd>
  
 Search for a Statuspage Incident using the Unique Id, also known as the Statuspage Incident Id. By definition, this will only return a single Incident. However, it returns a greater selection of output properties than the other steps.
 
@@ -103,7 +108,7 @@ Returns a list of Statuspage Incidents. Filter options available include all, un
 
 
 # Installation
-1. Download the [xMattersLabsStatuspageSteps.zip](xMattersLabsStatuspageSteps.zip) zip file from this repo. Click the name, then the ... icon from the top right, then select Download. Do not inflate the zip. It should be 44Kb in size. For some reason, if you choose Save Link As, the file successfully downloads and retains the .zip extension but inflates. It won't import into xMatters though.  Alternatively, you can download the file via the list of media at the top of this page. 
+1. Download the [xMattersLabsStatuspageSteps.zip](xMattersLabsStatuspageSteps.zip) zip file from this repo. Click the name, then the ... icon from the top right, then select Download. Do not inflate the zip. It should be 44 KB in size. For some reason, if you choose Save Link As, the file successfully downloads and retains the .zip extension but inflates to 377 KB. It won't import into xMatters though.  Alternatively, you can download the file via the list of media at the top of this page. 
    
 2. Log into xMatters as a user with either the Developer or Full Access User role. Navigate to Workflows, click the Import button on the top right and import the file. After a successful import, this is what you will see:
 
@@ -121,7 +126,7 @@ Returns a list of Statuspage Incidents. Filter options available include all, un
 	
 5. To the right of the screen on the Palette, highlight the CUSTOM tab. Type "statuspage" in the search bar to show just the new steps in this workflow. 
 
-	<kbd>  <img src="/media/custom_step_tab.png" width="750"> </kbd>
+	<kbd>  <img src="/media/custom_step_tab.png" width="400"> </kbd>
 	
 	Navigate to each new flow step in turn. Click the gear icon then Usage Permissions. In the pop-up window, grant ACCESS to other users/roles as required, e.g. select the Developer role and grant permission to Use or Edit the step.
 	 
@@ -129,11 +134,11 @@ Returns a list of Statuspage Incidents. Filter options available include all, un
 
 6. Set up authentication constants. Navigate to the FLOW DESIGNER tab of the workflow. At the top right of the screen, click Components > Constants.  
 
-	<kbd>  <img src="/media/components_constants.png" width="500"> </kbd>
+<kbd>  <img src="/media/components_constants.png" width="250"> </kbd>
 
   You need to set the correct API Key and Page ID constants to work with your Statuspage. Placeholder constants are there to be over-typed. See Statuspage Authentication section above for help on where to obtain these properties.
   
-	<kbd>  <img src="/media/constants.png" width="500"> </kbd>
+<kbd>  <img src="/media/constants.png" width="750"> </kbd>
 
 	  
   N.B. There is no need to set a new Endpoint. The standard Statuspage endpoint of https://api.statuspage.io will work.
@@ -141,13 +146,13 @@ Returns a list of Statuspage Incidents. Filter options available include all, un
 # Testing
 You can try out each new custom via the Statuspge Trigger Form. On the left hand nav, navigate to Messaging > xMatters Labs Statuspage Steps >  Statuspage Trigger Form. 
  
-	<kbd>  <img src="/media/messaging_list.png" width="750"> </kbd>
+<kbd>  <img src="/media/messaging_list.png" width="900"> </kbd>
 
 Open the form and select a step in the <b>Action</b> dropdown. Each Action corresponds to a new custom step. Fill in the appropriate values in the lower sections, e.g. Incident Name and Body. 
 
-<kbd>  <img src="/media/action_steps.png" width="750"> </kbd>
+<kbd>  <img src="/media/action_steps.png" width="500"> </kbd>
 	
-At the bottom of the form, you will see the Recipients section. You can optionally set yourself as a Recipient or proceed without one. When you click Send Message, an initial alert emial will be generated confirming the flow has been launched. A short while later, a second email alert will arrive with the step’s output values clearly shown. Alternatively, you can leave Recipient blank and view step output in the Statuspage Trigger Form flow activity log or even the Alerts report.
+At the bottom of the form, you will see the Recipients section. You can optionally set yourself as a Recipient or proceed without one. When you click Send Message, an initial alert email will be generated confirming the flow has been launched. A short while later, a second alert email will arrive with the step’s output values clearly shown. Alternatively, you can leave Recipient blank and view step output in the Statuspage Trigger Form flow activity log or even the Alerts report.
 
 After sending the form, we recommend you click the Duplicate button (top right of the Alert Report page) to quickly commence your next test.
 
@@ -155,7 +160,7 @@ After sending the form, we recommend you click the Duplicate button (top right o
 # Troubleshooting
 Navigate to xMatters Labs Statuspage Steps  > Flow Designer tab > Statuspage Trigger Form canvas. You can see the canvas used to select each step based on an initial Switch block. Each custom step outputs log notes. If a step fails, you can click the Activity button (top right) to view the Activity Log. You can inspect step inputs, outputs and logs. 
 
-<kbd>  <img src="/media/run_flow_step_activity_log.png" width="750"> </kbd>
+<kbd>  <img src="/media/run_flow_step_activity_log.png" width="900"> </kbd>
 
 # Disclaimer
 As per all xMatters Labs projects, the flow steps here are provided on an as-is basis. Although every effort has been made to ensure they work as expected, we cannot guarantee they run in all situations going forward. The steps are not officially supported by Everbridge Support. 
