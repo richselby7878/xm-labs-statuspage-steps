@@ -16,7 +16,7 @@ The steps are packaged with a simple test interface, Statuspage Trigger Form, wh
 * A Statuspage page to create and update Incidents. If you don't have one, you can sign up for an [Atlassian Statuspage Cloud Free account](https://www.atlassian.com/try/cloud/signup?bundle=statuspage&utm_source=pricing_free)
 
 # Statuspage Authentication Info
-* To integrate with Statuspabe, you will need to know your **Page Id** and **API Key**. Once logged into your Statuspage mangement console, head to the top right circular logo, click it, then choose *API Info*. On this page you will find your *Page ID* and can generate your *Organization API Key*.  
+* To integrate with Statuspage, you will need to know your **Page Id** and **API Key**. Once logged into your Statuspage mangement console, head to the top right circular logo, click it, then choose *API Info*. On this page you will find your *Page ID* and can generate your *Organization API Key*.  
 
 
 # Files
