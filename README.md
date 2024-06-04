@@ -67,6 +67,17 @@ The custom flow steps are...
 
 Create a new incident in Statuspage. Unlike the built-in Statuspage Create Incident step, this step allows you to optionally set affected components. You can choose either individual components or component-groups. For the latter, every component in the group is affected. N.B. The *component status* input applies to all components. Any unrecognised component names are silently ignored. Other inputs include Name, Status, Body (can be thought of as either first update or incident details) and Impact Override.  Step outputs include the Incident ID as assigned by Statuspage on creation. You should retain this ID to use in subsequent steps. 
 
+The **Metadata** input should be in the format of a nested JSON object, like so. The top level is considered by the Statuspage API as a namespace. If you pass in something unlikely to pass validation, the step silently skips passing it to the API, although it will be called out in the step logs. We figure it is better to post something than nothing.
+
+```
+{
+   "dw_namespace":{
+      "series_arc":"flux",
+      "doctor":"jodie w"
+   }
+}
+```
+
 *	**Statuspage Update Incident with Components**
   
 	<kbd>  <img src="/media/step_update.png" width="200"> </kbd>
